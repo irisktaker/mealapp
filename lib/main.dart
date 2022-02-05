@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../screens/category_meals_screen.dart';
 
 import 'screens/categories_screen.dart';
 
@@ -22,9 +23,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Meal App',
       theme: ThemeData(
-        primarySwatch: Colors.pink,
+        // primarySwatch: Colors.pink,
         colorScheme: const ColorScheme.light(
-          primary: Colors.amber,
+          primary: Colors.pink,
+          secondary: Colors.amber,
         ),
         canvasColor: const Color.fromRGBO(255, 254, 229, 1),
         textTheme: ThemeData.light().textTheme.copyWith(
@@ -41,7 +43,10 @@ class MyApp extends StatelessWidget {
               ),
             ),
       ),
-      home: const CategoriesScreen(),
+      routes: {
+        '/': (context) => const CategoriesScreen(),
+        CategoryMealsScreen.routeName: (context) => const CategoryMealsScreen(),
+      },
     );
   }
 }
