@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
               caption: const TextStyle(
                 fontSize: 24,
                 fontFamily: "RobotoCondensed",
-                // color: Colors.white,
+                // color: Colors.black,
               ),
             ),
       ),
