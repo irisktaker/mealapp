@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mealapp/screens/meal_details_screen.dart';
+import '../screens/meal_details_screen.dart';
+import '../screens/tabs_screen.dart';
 import '../screens/category_meals_screen.dart';
-
-import 'screens/categories_screen.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
@@ -45,21 +44,10 @@ class MyApp extends StatelessWidget {
             ),
       ),
       routes: {
-        '/': (context) => const CategoriesScreen(),
+        '/': (context) => const TabsScreen(),
         CategoryMealsScreen.routeName: (context) => const CategoryMealsScreen(),
         MealDetailsScreen.routeName: (context) => const MealDetailsScreen(),
       },
     );
   }
 }
-
-// class HomePage extends StatelessWidget {
-//   const HomePage({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return const Scaffold(
-//       body: CategoriesScreen(),
-//     );
-//   }
-// }
