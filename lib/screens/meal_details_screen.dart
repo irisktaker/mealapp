@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mealapp/dummy_data.dart';
 
 class MealDetailsScreen extends StatelessWidget {
   static const routeName = 'meal_details_screen';
@@ -7,12 +8,26 @@ class MealDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final routeMealDetail =
-        ModalRoute.of(context)!.settings.arguments as String;
+    final mealId = ModalRoute.of(context)!.settings.arguments as String;
+
+    final selectedMeal =
+        DUMMY_MEALS.firstWhere((element) => element.id == mealId);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(routeMealDetail),
+        title: Text(selectedMeal.title),
+      ),
+      body: Column(
+        children: [
+          SizedBox(
+            height: 300,
+            width: double.infinity,
+            child: Image.network(
+              selectedMeal.imageUrl,
+              fit: BoxFit.cover,
+            ),
+          ),
+        ],
       ),
     );
   }
