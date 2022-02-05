@@ -17,7 +17,7 @@ class CategoriesScreen extends StatelessWidget {
           mainAxisSpacing: 16,
           // mainAxisExtent: 100,
         ),
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(16),
         children: DUMMY_CATEGORIES
             .map((data) => CategoryItem(data.id, data.title, data.color))
             .toList(),

@@ -33,6 +33,7 @@ class CategoryItem extends StatelessWidget {
         ),
         child: Text(
           title,
+          textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.caption,
         ),
       ),
