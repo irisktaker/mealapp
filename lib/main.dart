@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mealapp/screens/filters_screen.dart';
-import '../screens/meal_details_screen.dart';
-import '../screens/tabs_screen.dart';
-import '../screens/category_meals_screen.dart';
+import '/dummy_data.dart';
+import '/screens/filters_screen.dart';
+import '/screens/meal_details_screen.dart';
+import '/screens/tabs_screen.dart';
+import '/screens/category_meals_screen.dart';
+import 'models/meal.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
@@ -14,10 +16,55 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  Map<String, bool> _filters = {
+    'gluten': false,
+    'lactose': false,
+    'vegan': false,
+    'vegetarian': false,
+  };
+
+  List<Meal> _availableMeals = DUMMY_MEALS;
+
+  void _setFilters(Map<String, bool> _filtersData) {
+    setState(() {
+      _filters = _filtersData;
+
+      _availableMeals = DUMMY_MEALS.where(
+        (element) {
+          if (_filters['gluten'] as bool && !element.isGlutenFree) {
+            return false;
+          }
+          if (_filters['lactose'] as bool && !element.isLactoseFree) {
+            return false;
+          }
+          if (_filters['vegan'] as bool && !element.isVegan) {
+            return false;
+          }
+          if (_filters['vegetarian'] as bool && !element.isVegetarian) {
+            return false;
+          }
+
+          // _filters['gluten'] as bool && !element.isGlutenFree ? false : null;
+          // _filters['lactose'] as bool && !element.isLactoseFree ? false : null;
+          // _filters['vegan'] as bool && !element.isVegan ? false : null;
+          // _filters['vegetarian'] as bool && !element.isVegetarian
+          //     ? false
+          //     : null;
+
+          return true;
+        },
+      ).toList();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -46,9 +93,11 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         '/': (context) => const TabsScreen(),
-        CategoryMealsScreen.routeName: (context) => const CategoryMealsScreen(),
+        CategoryMealsScreen.routeName: (context) =>
+            CategoryMealsScreen(_availableMeals),
         MealDetailsScreen.routeName: (context) => const MealDetailsScreen(),
-        FiltersScreen.routeName: (context) => const FiltersScreen(),
+        FiltersScreen.routeName: (context) =>
+            FiltersScreen(_filters, _setFilters),
       },
     );
   }
